@@ -1,5 +1,4 @@
 // console.log("running");
-
 let list = $("list");
 let form = document.getElementById("form");
 let elements = document.getElementById("elements");
@@ -42,19 +41,8 @@ function drop(e) {
   //creating iputs
   let input = document.createElement("input");
   input.type = `${type}`;
-  //   input.draggable = "true";
   input.id = type + count;
-  if (input.type === "checkbox") {
-    // var p = prompt("enter label");
-    // console.log(p)
-    // let pp = document.createElement("label");
-    // pp.innerHTML = p;
-    // input.append(pp);
-    // input.defaultValue = "uncheked";
-    // input.value = "checked";
-  } else {
-    input.placeholder = `${plchldr}`;
-  }
+  input.placeholder = `${plchldr}`;
 
   //creating break element
   let brek = document.createElement("br");
@@ -95,6 +83,7 @@ function del(val) {
 function submit() {
   document.getElementById("retrive").innerHTML = "";
   for (let i = 1; i <= count; i++) {
+    //creating elements
     let data = document.getElementById(i);
     if (data) {
       var inp = data.querySelector("input");
@@ -102,10 +91,13 @@ function submit() {
         if (validate(inp)) {
           let index = inp.id;
           let val = inp.value;
+          //adding to object and
           if (val) {
             obj[index] = val;
             let a = JSON.stringify(obj);
+            //storing data to local storage
             localStorage.setItem("dform", a);
+            //getting the data back
             x = localStorage.getItem("dform");
             x = JSON.parse(x);
           }
@@ -117,6 +109,7 @@ function submit() {
       }
     }
   }
+  //retriving data from local storage
   if (x) {
     let a = document.getElementById("retrive");
     let lable = document.createElement("h3");
@@ -131,6 +124,7 @@ function submit() {
   }
 }
 
+//form validation according to data types
 function validate(data) {
   if (data.type === "text") {
     return true;
@@ -157,8 +151,6 @@ function validate(data) {
     return true;
   } else if (data.type === "color") {
     return true;
-  } else if (data.type === "checkbox") {
-    return true;
   } else if (data.type === "file") {
     return true;
   } else if (data.type === "range") {
@@ -168,6 +160,7 @@ function validate(data) {
   }
 }
 
+//validating email
 const validateEmail = (email) => {
   return email.match(
     /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
